@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feli cumplee Crismely!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF1F7; --ink:#2A1240; --muted:#6B4A82; --pink:#E8307F; --gold:#F2A900; --mint:#17B890;
+  --card:#FFFFFF; --cake1:#F8A8CB; --cake2:#FFD6E8; --plate:#D9C6EA;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#2A1240; --ink:#FFF1F7; --muted:#D3B8E8; --pink:#FF5BA3; --gold:#FFC93C; --mint:#5EE6C2;
+    --card:#3A1B58; --cake1:#FF8DBF; --cake2:#FFC7E0; --plate:#5B3A80; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#2A1240; --ink:#FFF1F7; --muted:#D3B8E8; --pink:#FF5BA3; --gold:#FFC93C; --mint:#5EE6C2;
+  --card:#3A1B58; --cake1:#FF8DBF; --cake2:#FFC7E0; --plate:#5B3A80; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;padding:24px 16px;overflow-x:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+main{width:100%;max-width:520px;text-align:center;position:relative;z-index:1}
+h1{font-family:"Bagel Fat One","Arial Rounded MT Bold",system-ui,sans-serif;font-weight:400;
+  font-size:clamp(2.4rem,9vw,3.6rem);line-height:1.05;margin:0 0 8px;color:var(--pink)}
+.sub{color:var(--muted);font-size:1.1rem;margin:0 0 8px}
+svg.cake{width:min(78vw,320px);height:auto;margin:8px auto 0;display:block;overflow:visible}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flicker .45s ease-in-out infinite alternate}
+.flame:nth-of-type(2){animation-delay:.12s}.flame:nth-of-type(3){animation-delay:.25s}
+@keyframes flicker{from{transform:scale(1,1) rotate(-3deg)}to{transform:scale(.88,1.1) rotate(3deg)}}
+.out .flame{animation:none;opacity:0;transition:opacity .35s}
+.smoke{opacity:0}
+.out .smoke{animation:smoke 1.6s ease-out}
+@keyframes smoke{0%{opacity:.7;transform:translateY(0)}100%{opacity:0;transform:translateY(-26px)}}
+button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:14px 28px;cursor:pointer;
+  background:var(--pink);color:#fff;font-size:1.05rem;margin-top:14px}
+button.ghost{background:transparent;color:var(--muted);text-decoration:underline;padding:8px 12px;font-size:.95rem}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+button:active{transform:scale(.97)}
+.letter{background:var(--card);border-radius:22px;padding:26px 24px;margin-top:20px;text-align:left;
+  box-shadow:0 10px 30px rgba(42,18,64,.18);border:2px solid var(--gold);
+  max-height:0;opacity:0;overflow:hidden;padding-top:0;padding-bottom:0;margin-top:0;
+  transition:max-height .9s ease,opacity .6s ease,padding .6s ease,margin .6s ease}
+.show .letter{max-height:900px;opacity:1;padding:26px 24px;margin-top:20px}
+.letter h2{font-family:"Bagel Fat One",system-ui,sans-serif;font-weight:400;font-size:1.6rem;margin:0 0 10px;color:var(--pink)}
+.letter p{margin:0 0 12px;line-height:1.6;font-size:1.05rem}
+.letter .firma{margin:16px 0 0;font-weight:700;color:var(--muted)}
+.hide{display:none}
+@media (prefers-reduced-motion:reduce){.flame{animation:none}.letter{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="c" aria-hidden="true"></canvas>
+<main id="app">
+  <h1>Feli cumplee helmana!</h1>
+
+  <svg class="cake" viewBox="0 0 320 300" role="img" aria-label="Pastel de cumpleaños con tres velitas">
+    <ellipse cx="160" cy="276" rx="150" ry="16" fill="var(--plate)"/>
+    <rect x="40" y="190" width="240" height="84" rx="14" fill="var(--cake1)"/>
+    <path d="M40 204h240v-14a14 14 0 0 0-14-14H54a14 14 0 0 0-14 14z" fill="var(--cake2)"/>
+    <path d="M40 200q15 26 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0v-12H40z" fill="var(--cake2)"/>
+    <rect x="80" y="130" width="160" height="62" rx="12" fill="var(--cake1)"/>
+    <path d="M80 142q13 22 26 0t26 0 26 0 26 0 26 0 26 0v-8a12 12 0 0 0-12-12H92a12 12 0 0 0-12 12z" fill="var(--cake2)"/>
+    <circle cx="100" cy="236" r="6" fill="var(--gold)"/><circle cx="160" cy="244" r="6" fill="var(--mint)"/>
+    <circle cx="220" cy="236" r="6" fill="var(--gold)"/><circle cx="130" cy="170" r="5" fill="var(--pink)"/>
+    <circle cx="190" cy="172" r="5" fill="var(--mint)"/>
+    <g id="candles">
+      <rect x="116" y="86" width="10" height="44" rx="3" fill="var(--mint)"/>
+      <rect x="155" y="78" width="10" height="52" rx="3" fill="var(--gold)"/>
+      <rect x="194" y="86" width="10" height="44" rx="3" fill="var(--pink)"/>
+      <path class="flame" d="M121 56c8 10 9 18 0 26-9-8-8-16 0-26z" fill="#FFB400"/>
+      <path class="flame" d="M160 48c8 10 9 18 0 26-9-8-8-16 0-26z" fill="#FFB400"/>
+      <path class="flame" d="M199 56c8 10 9 18 0 26-9-8-8-16 0-26z" fill="#FFB400"/>
+      <path class="flame" d="M121 66c4 5 4 9 0 13-4-4-4-8 0-13z" fill="#FF5A36"/>
+      <path class="flame" d="M160 58c4 5 4 9 0 13-4-4-4-8 0-13z" fill="#FF5A36"/>
+      <path class="flame" d="M199 66c4 5 4 9 0 13-4-4-4-8 0-13z" fill="#FF5A36"/>
+      <g class="smoke" fill="none" stroke="var(--muted)" stroke-width="3" stroke-linecap="round">
+        <path d="M121 74q-6-10 0-18"/><path d="M160 66q-6-10 0-18"/><path d="M199 74q-6-10 0-18"/>
+      </g>
+    </g>
+  </svg>
+
+  <button id="blow" type="button">Soplar las velitas</button>
+
+</main>
+
+<script>
+(function(){
+  var app=document.getElementById('app'), blow=document.getElementById('blow'),
+      cv=document.getElementById('c'), ctx=cv.getContext('2d'), parts=[], raf=null,
+      reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var colors=['#E8307F','#F2A900','#17B890','#7B4DFF','#FF7A59','#3FA9F5'];
+
+  function size(){cv.width=window.innerWidth;cv.height=window.innerHeight}
+  window.addEventListener('resize',size);size();
+
+  function burst(){
+    var w=cv.width,h=cv.height,n=reduce?30:160;
+    for(var i=0;i<n;i++){
+      var left=i%2===0;
+      parts.push({x:left?0:w,y:h*0.65,vx:(left?1:-1)*(3+Math.random()*7),vy:-(8+Math.random()*10),
+        s:5+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:colors[i%colors.length],life:0});
+    }
+    if(!raf)loop();
+  }
+  function loop(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    parts=parts.filter(function(p){return p.y<cv.height+20&&p.life<260});
+    parts.forEach(function(p){
+      p.vy+=.25;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;
+      ctx.globalAlpha=Math.max(0,1-p.life/260);ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore();
+    });
+    raf=parts.length?requestAnimationFrame(loop):null;
+    if(!raf)ctx.clearRect(0,0,cv.width,cv.height);
+  }
+
+  blow.addEventListener('click',function(){
+    app.classList.add('out');
+    blow.classList.add('hide');
+    burst();setTimeout(burst,500);
+  });
+})();
+</script>
+</body>
+</html>
