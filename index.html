@@ -8,14 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#FFF1F7; --ink:#2A1240; --muted:#6B4A82; --pink:#E8307F; --gold:#F2A900; --mint:#17B890;
-  --cake1:#F8A8CB; --cake2:#FFD6E8; --plate:#D9C6EA;
+  --bg:#FFF8E7; --ink:#3E2723; --muted:#6D4C41; --pink:#8D6E63; --gold:#FFD54F; --mint:#FFCA28;
+  --cake1:#8D6E63; --cake2:#A1887F; --plate:#D7CCC8;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#2A1240; --ink:#FFF1F7; --muted:#D3B8E8; --pink:#FF5BA3; --gold:#FFC93C; --mint:#5EE6C2;
-    --cake1:#FF8DBF; --cake2:#FFC7E0; --plate:#5B3A80; color-scheme:dark;
+    --bg:#3E2723; --ink:#FFF8E7; --muted:#D7CCC8; --pink:#A1887F; --gold:#FFE082; --mint:#FFE082;
+    --cake1:#5D4037; --cake2:#795548; --plate:#4E342E; color-scheme:dark;
   }
 }
 *{box-sizing:border-box}
@@ -46,7 +46,7 @@ button:active{transform:scale(.97)}
 <body>
 <canvas id="c" aria-hidden="true"></canvas>
 <main id="app">
-  <h1>Feli cumplee helmana!</h1>
+  <h1>Feli cumplee helmana! 🐒🍌</h1>
 
   <svg class="cake" viewBox="0 0 320 300" role="img" aria-label="Pastel de cumpleaños con tres velitas">
     <ellipse cx="160" cy="276" rx="150" ry="16" fill="var(--plate)"/>
@@ -55,10 +55,18 @@ button:active{transform:scale(.97)}
     <path d="M40 200q15 26 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0v-12H40z" fill="var(--cake2)"/>
     <rect x="80" y="130" width="160" height="62" rx="12" fill="var(--cake1)"/>
     <path d="M80 142q13 22 26 0t26 0 26 0 26 0 26 0 26 0v-8a12 12 0 0 0-12-12H92a12 12 0 0 0-12 12z" fill="var(--cake2)"/>
+    <rect x="120" y="70" width="80" height="62" rx="10" fill="var(--cake1)"/>
+    <path d="M120 82q13 22 26 0t26 0 26 0v-6a10 10 0 0 0-10-10H130a10 10 0 0 0-10 10z" fill="var(--cake2)"/>
     <circle cx="100" cy="236" r="6" fill="var(--gold)"/><circle cx="160" cy="244" r="6" fill="var(--mint)"/>
     <circle cx="220" cy="236" r="6" fill="var(--gold)"/><circle cx="130" cy="170" r="5" fill="var(--pink)"/>
     <circle cx="190" cy="172" r="5" fill="var(--mint)"/>
-    <g id="candles">
+    <circle cx="150" cy="110" r="4" fill="var(--gold)"/><circle cx="170" cy="112" r="4" fill="var(--mint)"/>
+
+    <text x="70" y="240" style="filter: drop-shadow(0px 0px 2px white); font-size: 32px;">🐒</text>
+    <text x="210" y="240" style="filter: drop-shadow(0px 0px 2px white); font-size: 32px;">🐵</text>
+    <text x="140" y="175" style="filter: drop-shadow(0px 0px 2px white); font-size: 28px;">🐒</text>
+
+    <g id="candles" transform="translate(0, -60)">
       <rect x="116" y="86" width="10" height="44" rx="3" fill="var(--mint)"/>
       <rect x="155" y="78" width="10" height="52" rx="3" fill="var(--gold)"/>
       <rect x="194" y="86" width="10" height="44" rx="3" fill="var(--pink)"/>
@@ -75,8 +83,8 @@ button:active{transform:scale(.97)}
   </svg>
 
   <button id="blow" type="button">Soplar las velitas </button>
-  <p class="msg" aria-live="polite">Pásala bienn, que te lo mereces!</p>
-  <p class="msg" aria-live="polite">(peldon que no soy bueno escribiendo cosas😭😭)</p>
+  <p class="msg" aria-live="polite">Pásala bienn, que te lo mereces! 🍌🐵</p>
+  <p class="msg" aria-live="polite">(peldon que no soy bueno escribiendo cosas😭😭🐒)</p>
 </main>
 
 <script>
@@ -84,7 +92,7 @@ button:active{transform:scale(.97)}
   var app=document.getElementById('app'), blow=document.getElementById('blow'),
       cv=document.getElementById('c'), ctx=cv.getContext('2d'), parts=[], raf=null,
       reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var colors=['#E8307F','#F2A900','#17B890','#7B4DFF','#FF7A59','#3FA9F5'];
+  var emojis=['🐒','🍌','🐵','🙊'];
 
   function size(){cv.width=window.innerWidth;cv.height=window.innerHeight}
   window.addEventListener('resize',size);size();
@@ -94,7 +102,7 @@ button:active{transform:scale(.97)}
     for(var i=0;i<n;i++){
       var left=i%2===0;
       parts.push({x:left?0:w,y:h*0.65,vx:(left?1:-1)*(3+Math.random()*7),vy:-(8+Math.random()*10),
-        s:5+Math.random()*7,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:colors[i%colors.length],life:0});
+        s:15+Math.random()*15,r:Math.random()*6,vr:(Math.random()-.5)*.4,e:emojis[i%emojis.length],life:0});
     }
     if(!raf)loop();
   }
@@ -103,8 +111,11 @@ button:active{transform:scale(.97)}
     parts=parts.filter(function(p){return p.y<cv.height+20&&p.life<260});
     parts.forEach(function(p){
       p.vy+=.25;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life++;
-      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;
-      ctx.globalAlpha=Math.max(0,1-p.life/260);ctx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);ctx.restore();
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);
+      ctx.globalAlpha=Math.max(0,1-p.life/260);
+      ctx.font = p.s + "px sans-serif";
+      ctx.fillText(p.e,-p.s/2,p.s/2);
+      ctx.restore();
     });
     raf=parts.length?requestAnimationFrame(loop):null;
     if(!raf)ctx.clearRect(0,0,cv.width,cv.height);
